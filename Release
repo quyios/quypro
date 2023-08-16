@@ -1,11 +1,11 @@
-Origin: KidsAuto Pro v9 Repo
-Label: KidsAuto Pro v9 Repo
+Origin: QuyIOS Repo
+Label: QuyIOS Repo
 Suite: stable
 Version: 1.0
 Codename: ios
 Architecture: iphoneos-arm
 Components: main
-Description: KidsAuto Pro v9 for iDevice Model 10.x - 12.2 & 12.4 & Checkra1n Jailbreaks
+Description: QuyIOS Repo In MMOLIFE
 MD5Sum:
  ebe8e57f53af66d4e163fd993cf15cfc 18666 Packages
  de0f63fbe4b7c5a0684984cb49afa2eb 4139 Packages.bz2
