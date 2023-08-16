@@ -1,1 +1,1 @@
-bash -c "cd D:\IOS\Public9\v9; ./update.sh;"
+bash -c "cd C:\Users\Admin\Documents\GitHub\quypro; ./update.sh;"
