@@ -5,7 +5,7 @@ Maintainer: CokePokes
 Depends: firmware (>= 11.0), com.rpetrich.actiwidget, mobilesubstrate, com.hackyouriphone.puck, net.kenhtao.icleanerpro, net.kenhtao.callblocker, net.kenhtao.appdatamanager, me.autotouch.AutoTouch.ios8.inputtext, com.kidsautopro.kidsautosetting, com.ienthach.XoaInfo, com.ichitaso.powerselector11
 Conflicts: com.unlimapps.uaupdatetools
 Replaces:
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.cokepokes.appstoreplusplus_0.10.1-5_iphoneos-arm.deb
+Filename: ./Debs/com.cokepokes.appstoreplusplus_0.10.1-5_iphoneos-arm.deb
 Size: 4624360
 MD5sum: 8b5dcfbbe0e6cb970f9dff853922504e
 SHA1: 629bb786af167b30c1117d9ab58ebfa910b7ddce
@@ -25,7 +25,7 @@ Version: 1.1
 Architecture: iphoneos-arm
 Maintainer: HackYouriPhone <repo@hackyouriphone.org>
 Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.14), firmware (>= 12.0), com.opa334.ccsupport
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.hackyouriphone.puck_1.deb
+Filename: ./Debs/com.hackyouriphone.puck_1.deb
 Size: 1529062
 MD5sum: 5df86c9a1ecde035d5a5a69ae9e18873
 SHA1: b888667afc3e491fb4fbbf7a2ad4d3374476acfa
@@ -45,7 +45,7 @@ Maintainer: ichitaso <willfeeltips+ps11@gmail.com>
 Depends: mobilesubstrate, preferenceloader, com.opa334.ccsupport
 Conflicts: com.ichitaso.powerselector, com.dpkgdan.powertap, com.weesstt.powerdownoptions, com.subdiox.powertap2, com.rustybalboa.powertapxi
 Replaces: com.ichitaso.powerselector11
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.ichitaso.powerselector11.deb
+Filename: ./Debs/com.ichitaso.powerselector11.deb
 Size: 215644
 MD5sum: 993217fb63151e4971ec8e36cf0161b4
 SHA1: b9aa25e09562aa21f876b72de03c81d3f1be5212
@@ -68,7 +68,7 @@ Version: 2.14-7
 Architecture: iphoneos-arm
 Maintainer: Nguyen Quang Vu (ienthach) <ienthach87@gmail.com>
 Depends: firmware (>= 7.0), mobilesubstrate, com.rpetrich.rocketbootstrap, curl, openssh
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.ienthach.XoaInfo_2.14-7_iphoneos-arm.deb
+Filename: ./Debs/com.ienthach.XoaInfo_2.14-7_iphoneos-arm.deb
 Size: 5808542
 MD5sum: 8bbdaa9ee6ff9817d5d9d40712f94e72
 SHA1: cb951606a6f739fcd756c00b0bd83e653306fbea
@@ -85,7 +85,7 @@ Version: 0.0.1-836+debug
 Architecture: iphoneos-arm
 Maintainer: Mins
 Depends: mobilesubstrate, com.rpetrich.rocketbootstrap, jetslammed, ws.hbang.common, zip, tar, unzip, gzip, unrar, p7zip
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.mins.linhvuauto.deb
+Filename: ./Debs/com.mins.linhvuauto.deb
 Size: 1249172
 MD5sum: d9113b1e0b858160fad5208a2c14191c
 SHA1: 801b257be46f7eb2497a62c4cfdebde14958ad5e
@@ -102,7 +102,7 @@ Version: 1.0-643+debug
 Architecture: iphoneos-arm
 Maintainer: Mins
 Depends: mobilesubstrate, com.rpetrich.rocketbootstrap, jetslammed, ws.hbang.common, zip, tar, unzip, gzip, unrar, p7zip, openssh, curl
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.mins.linhvuplus.deb
+Filename: ./Debs/com.mins.linhvuplus.deb
 Size: 4996796
 MD5sum: 81948d08afdb1db8ba037544e59047bd
 SHA1: 9cfa1badd43c7c67f21564d66cf35d9e3867d9cb
@@ -119,7 +119,7 @@ Version: 0.0.1-1+debug
 Architecture: iphoneos-arm
 Maintainer: Mins
 Depends: jetslammed
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.mins.ramleakprevent.deb
+Filename: ./Debs/com.mins.ramleakprevent.deb
 Size: 2876
 MD5sum: 06f6bb0a3af0b14cc8c1c2bdf6399159
 SHA1: 48959dd04dd6dcbc98b95c6aced04ef47ad88920
@@ -136,7 +136,7 @@ Version: 0.0.1-345+debug
 Architecture: iphoneos-arm
 Maintainer: Mins
 Depends: mobilesubstrate, com.rpetrich.rocketbootstrap, jetslammed, ws.hbang.common, zip, tar, unzip, gzip, unrar, p7zip, openssh, curl,applist
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.mins.ttweak_0.0.1-345+debug_iphoneos-arm.deb
+Filename: ./Debs/com.mins.ttweak_0.0.1-345+debug_iphoneos-arm.deb
 Size: 1151338
 MD5sum: 3a3903d7348808bb7bc9454ec4258a68
 SHA1: 0447876e2f4376294e0f98462a6bf594a1da2742
@@ -153,7 +153,7 @@ Version: 0.1
 Architecture: iphoneos-arm
 Maintainer: Ryan Petrich
 Depends: firmware (>= 5.0), mobilesubstrate, com.chpwn.weeloader, libactivator (>= 1.7.5~beta10)
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.rpetrich.actiwidget_0.1.deb
+Filename: ./Debs/com.rpetrich.actiwidget_0.1.deb
 Size: 7468
 MD5sum: 3ca41995283c895b2363068ea5ccf9a0
 SHA1: d132df169f96eb17fede69eda325855f9a4eb7fb
@@ -169,7 +169,7 @@ Version: 1.0.2
 Architecture: iphoneos-arm
 Maintainer: shiftcmdk
 Depends: mobilesubstrate
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/com.shiftcmdk.autoalerts.deb
+Filename: ./Debs/com.shiftcmdk.autoalerts.deb
 Size: 101892
 MD5sum: a47320321361cd2ffd649a3d0026723d
 SHA1: 853da48d0826736417560bb0cfe6f056d9811b8c
@@ -188,7 +188,7 @@ Maintainer: ichitaso
 Depends: mobilesubstrate, preferenceloader
 Conflicts: jp.akusio.kernbypass, com.apple.memecity
 Replaces: jp.akusio.kernbypass-unofficial
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/jp.akusio.kernbypass-unofficial_0.0.5.deb
+Filename: ./Debs/jp.akusio.kernbypass-unofficial_0.0.5.deb
 Size: 144922
 MD5sum: 88664e2a63933c4ba6c58a13936d4299
 SHA1: d2eed190bf07e978ec7e78c4f3ae5c39729a91f2
@@ -211,7 +211,7 @@ Architecture: iphoneos-arm
 Maintainer: Dev by KidsAuto Team
 Depends: mobilesubstrate, ws.hbang.common
 Conflicts: com.kidsprivate.kidsrestore, com.kidsauto.sslkillswitch2
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/KidsSetting1222.deb
+Filename: ./Debs/KidsSetting1222.deb
 Size: 61566
 MD5sum: 32239ba95a760e208b81ab1136ee953e
 SHA1: 7b115aac2d16a4a23d5f299482152382fc84d008
@@ -225,7 +225,7 @@ Package: com.kidsautopro.kidssupport
 Version: 1.11-10-2-1
 Architecture: iphoneos-arm
 Maintainer: KidsAuto Teams
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/KidsSupport.deb
+Filename: ./Debs/KidsSupport.deb
 Size: 1180664
 MD5sum: 37366f13d004156ae949f1e4b524b8b0
 SHA1: 2ad007258a987c8c0043f80fd0ab29740192ca7a
@@ -245,7 +245,7 @@ Maintainer: Ryan Petrich <rpetrich+activator@gmail.com>
 Depends: mobilesubstrate (>= 0.9.5101), preferenceloader (>= 2.2.2), com.a3tweaks.flipswitch (>= 1.0.16~rc3), com.rpetrich.rocketbootstrap (>= 1.0.9)
 Conflicts: com.booleanmagic.overboard (<= 1.1), com.ashman.lockinfo (<= 2.0.0-6), sbsettings (<= 3.0.6), com.fuyuchi.missionboardpro (<= 1.3), com.kindadev.nobetaalert, libhide (<< 2.4.1), com.fortysixandtwo.activ8rfix, net.tateu.actisearch, com.jakeashacks.activator, com.udevs.activatorhomebuttoncrashfix, eu.rio-doro.actithemefix
 Replaces: com.booleanmagic.overboard (<= 1.1), com.ashman.lockinfo (<= 2.0.0-6), com.fuyuchi.missionboardpro (<= 1.3), com.kindadev.nobetaalert, com.fortysixandtwo.activ8rfix, net.tateu.actisearch, com.jakeashacks.activator, com.udevs.activatorhomebuttoncrashfix, eu.rio-doro.actithemefix
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/libactivator_1.9.13~rc6_iphoneos-arm.deb
+Filename: ./Debs/libactivator_1.9.13~rc6_iphoneos-arm.deb
 Size: 929288
 MD5sum: edb85ee5c115534b48818d8bb9592152
 SHA1: 31be51e4b89f8e4e39ec1920e945960d3f458d96
@@ -268,7 +268,7 @@ Architecture: iphoneos-arm
 Maintainer: Kent Krantz <kentkrantz@gmail.com>
 Depends: firmware (>= 8.0), mobilesubstrate, com.rpetrich.rocketbootstrap (>> 1.0.6)
 Conflicts: com.repo.xarold.com.autotouch8, repo.biteyourapple.net.autotouch8, repo.biteyourapple.net.autotouch, com.hackyouriphone.autotouch8
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/me.autotouch.AutoTouch.ios8.inputtext.deb
+Filename: ./Debs/me.autotouch.AutoTouch.ios8.inputtext.deb
 Size: 26461766
 MD5sum: c16716bbc1d4af016e5b7c30889574bf
 SHA1: 0ccc1a3d70b2b90435399e61a9f4225887c0f491
@@ -286,7 +286,7 @@ Package: net.kenhtao.appdatamanager
 Version: 1.6.1-11
 Architecture: iphoneos-arm
 Maintainer: Kênh Táo
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/net.kenhtao.appdatamanager.deb
+Filename: ./Debs/net.kenhtao.appdatamanager.deb
 Size: 2531260
 MD5sum: 33602027bd268aae0a7cb03d176cc1e3
 SHA1: 777cb5fcb347772c6e69aabfc64f83aa634fe853
@@ -306,7 +306,7 @@ Version: 2.0.3
 Architecture: iphoneos-arm
 Maintainer: Kênh Táo
 Depends: mobilesubstrate, preferenceloader
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/net.kenhtao.callblocker.deb
+Filename: ./Debs/net.kenhtao.callblocker.deb
 Size: 79282
 MD5sum: ee5aa2631f6610c699f330aa5ce4e6f5
 SHA1: 5248cde75c8c78ea6882437e2a562dc7d5caa335
@@ -327,7 +327,7 @@ Maintainer: Kênh Táo
 Depends: firmware (>= 4.0), findutils, apt | apt7
 Conflicts: org.altervista.exilecom.icleaner, com.exile90.icleanerpro
 Replaces: org.altervista.exilecom.icleaner
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/net.kenhtao.icleanerpro.deb
+Filename: ./Debs/net.kenhtao.icleanerpro.deb
 Size: 4804842
 MD5sum: e238f15a7983a0c97ae5c0e674f12e17
 SHA1: 32f740e4a22f764bbffbdd6c3962dc2c17311fde
@@ -347,7 +347,7 @@ Architecture: iphoneos-arm
 Maintainer: Kênh Táo
 Depends: mobilesubstrate, preferenceloader, applist, firmware (>= 13.0)
 Conflicts: com.cemck.killx
-Filename: C:/Users/Admin/Documents/GitHub/quypro/Debs/net.kenhtao.killx_3.0.2_iphoneos-arm.deb
+Filename: ./Debs/net.kenhtao.killx_3.0.2_iphoneos-arm.deb
 Size: 274264
 MD5sum: 53d3eb8aef988331999b9a824acc5a35
 SHA1: eb610930eb4dcbbe7875e953a1f7c1c40afd297a
