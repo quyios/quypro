@@ -148,6 +148,26 @@ Installed-Size: 5564
 Name: TTweak
 Tag: role::hacker
 
+Package: com.opa334.ccsupport
+Version: 1.3.13-2
+Architecture: iphoneos-arm
+Maintainer: opa334
+Depends: mobilesubstrate, firmware (>=11.0)
+Conflicts: com.ioscreatix.silo
+Replaces: com.ioscreatix.silo
+Filename: ./Debs/com.opa334.ccsupport_1.3.13-2_iphoneos-arm.deb
+Size: 64204
+MD5sum: fb8f8641a2508106e155a2fa701d9099
+SHA1: a5229c5da464d2b2f9ff334748801f4194ac6a2e
+SHA256: 60de418d12dbf2384ce045c3f029fb6aa87c53da16c63860ab17d117b7b0473c
+Section: Tweaks
+Description: Support tweak for CC modules!
+Author: opa334
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=ccsupportDp
+Installed-Size: 496
+Name: CCSupport
+Provides: com.ioscreatix.silo
+
 Package: com.rpetrich.actiwidget
 Version: 0.1
 Architecture: iphoneos-arm
