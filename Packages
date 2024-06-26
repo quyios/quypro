@@ -1,3 +1,27 @@
+Package: com.a3tweaks.flipswitch
+Version: 1.0.16~rc3
+Architecture: iphoneos-arm
+Maintainer: rpetrich & a3tweaks <rpetrich+flipswitch@gmail.com>
+Depends: mobilesubstrate (>= 0.9.5001), com.rpetrich.rocketbootstrap (>= 1.0.9) | firmware (<< 7.0)
+Conflicts: com.rpetrich.donotdisturbtoggle (<= 1.0-1), com.jerryen.rotationlockflipswitch, com.jakeashacks.realcc (<< 1.0.2)
+Replaces: com.jerryen.rotationlockflipswitch, tw.garynil.ccfixer93, tw.hiraku.nightshift, com.jakeashacks.realcc (<< 1.0.2)
+Filename: ./Debs/com.a3tweaks.flipswitch_1.0.16~rc3_iphoneos-arm.deb
+Size: 301098
+MD5sum: 6aa1da6c359b385e715cc8a71aa64364
+SHA1: 23618f385d41c2624fc09a60e9f554f3f8faff24
+SHA256: a13a6928248a41a6b81b1faec9703f4e7af9aedcede5ef11dbd71dbd22fc58ec
+Section: System
+Description: Centralized toggle system for iOS
+Author: rpetrich <rpetrich+flipswitch@gmail.com>
+Depiction: https://rpetri.ch/cydia/flipswitch/beta/
+Homepage: https://rpetri.ch/cydia/flipswitch/beta/
+Icon: file:///Applications/Preferences.app/icon-table.png
+Installed-Size: 2408
+Name: Flipswitch
+Provides: com.jerryen.rotationlockflipswitch, tw.garynil.ccfixer93, tw.hiraku.nightshift
+Tag: purpose::extension, role::developer
+dev: flipswitch
+
 Package: com.cokepokes.appstoreplusplus
 Version: 0.10.1-5
 Architecture: iphoneos-arm
@@ -184,6 +208,27 @@ Author: Ryan Petrich
 Installed-Size: 28
 Name: Actiwidget
 
+Package: com.rpetrich.rocketbootstrap
+Version: 1.0.10~beta1
+Architecture: iphoneos-arm
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 3.0)
+Filename: ./Debs/com.rpetrich.rocketbootstrap_1.0.10~beta1_iphoneos-arm.deb
+Size: 38344
+MD5sum: b52417e29631c59cdb267379e71e2a69
+SHA1: 5839fce38b27e624ab5629d50fd543f30b473615
+SHA256: d06e18eefbfcb40f3e3b215bfbccaf34091fb30b2ccb1e4f6c519aa91d2b7248
+Section: Tweaks
+Description: Support library allowing tweaks to communicate with sandboxed processes
+Author: Ryan Petrich <rpetrich+rocketbootstrap@gmail.com>
+Depiction: https://www.rpetrich.com/cydia/rocketbootstrap/beta/
+Homepage: https://www.rpetrich.com/cydia/rocketbootstrap/beta/
+Installed-Size: 596
+Name: RocketBootstrap
+Sponsor: thebigboss.org <http://thebigboss.org>
+Tag: purpose::extension, role::developer
+dev: rpetrich
+
 Package: com.shiftcmdk.autoalerts
 Version: 1.0.2
 Architecture: iphoneos-arm
@@ -317,6 +362,27 @@ Installed-Size: 100716
 Name: AutoTouch with inputText
 Priority: optional
 
+Package: mobilesubstrate
+Version: 0.9.6301
+Architecture: iphoneos-arm
+Maintainer: Jay Freeman (saurik) <saurik@saurik.com>
+Depends: com.saurik.substrate.safemode
+Conflicts: me.devbug.msreloadfix, com.r3pwn.startsubstrate, com.ragemasta.bootstrap
+Breaks: uikittools (<< 1.1.1), com.mywi4 (<= 5.03.2), com.phoenix.pandoracontrols (<= 1.1.0-1), com.intelliborn.intelliscreenx (<= 1.0.110), com.evad3rs.evasi0n7 (<< 0.2)
+Replaces: cycript (<= 0.9.594)
+Filename: ./Debs/mobilesubstrate_0.9.6301_iphoneos-arm.deb
+Size: 122342
+MD5sum: f2ca15c08aab522d8b7e842238aa83c6
+SHA1: 02ad8dce33adae8ba256dd5a4cac3bdf0246deec
+SHA256: 8dc91a066f088632409fecf65613831b8d6802e3b799f2dc87563c3ea2ed06ca
+Section: System
+Description: powerful code insertion platform
+Author: Jay Freeman (saurik) <saurik@saurik.com>
+Depiction: http://cydia.saurik.com/info/mobilesubstrate/
+Name: Cydia Substrate
+Pre-Depends: dpkg (>= 1.14.25-8)
+Priority: optional
+
 Package: net.kenhtao.appdatamanager
 Version: 1.6.1-11
 Architecture: iphoneos-arm
@@ -395,3 +461,23 @@ Icon: file:///Applications/Cydia.app/Sections/tinhchinh.png
 Installed-Size: 984
 Name: KillX Pro VN
 Sileodepiction: http://repo.kenhtao.net/sileo-depiction/net.kenhtao.killx
+
+Package: preferenceloader
+Version: 2.2.4~beta1
+Architecture: iphoneos-arm
+Maintainer: Dustin Howett <cydia.pl@relay.howett.net>
+Depends: mobilesubstrate
+Filename: ./Debs/preferenceloader_2.2.4~beta1_iphoneos-arm.deb
+Size: 33838
+MD5sum: 61efed5a8aa8507208731da2d737c882
+SHA1: 5c180113d9fc6263cf30700a725dacb92b546218
+SHA256: d395cfb1d8dd56f984df50dc0db33746e3e1e72f311be5bad3f4235342b21b90
+Section: System
+Description: load preferences in style
+Author: Dustin Howett <cydia.pl@relay.howett.net>
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=preferenceloader2Data
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=preferenceloader2Data
+Installed-Size: 532
+Name: PreferenceLoader
+Tag: role::hacker, purpose::library
+dev: dustinhowett
