@@ -1,19 +1,18 @@
 #!/bin/bash
 set -euo pipefail
 
-
-
 REG_NAME="Vinh..HaiPhong"
 REG_APP="GGCL-PROXY"
 
-PROXY_USER="VinhHP01"
-PROXY_PASS="ChapHet@"
+# Generate Random User and Password
+PROXY_USER="$(openssl rand -hex 4 2>/dev/null || echo "user$RANDOM")"
+PROXY_PASS="$(openssl rand -hex 6 2>/dev/null || echo "pass$RANDOM$RANDOM")"
 
 DESIRED_TOKYO=4
 DESIRED_OSAKA=4
 
-ZONE_TOKYO="asia-northeast1-c"
-ZONE_OSAKA="asia-northeast2-c"
+TOKYO_ZONES=("asia-northeast1-a" "asia-northeast1-b" "asia-northeast1-c" "asia-northeast1-a")
+OSAKA_ZONES=("asia-northeast2-a" "asia-northeast2-b" "asia-northeast2-c" "asia-northeast2-a"))
 
 MACHINE_TYPE="e2-micro"
 IMAGE_FAMILY="ubuntu-2204-lts"
@@ -27,37 +26,30 @@ FW_NAME="allow-web-ssh"
 
 SLEEP_BETWEEN_CREATES=30
 
-
-
 WHOAMI="$(timeout 10 gcloud config get-value account 2>/dev/null || echo unknown)"
 HOST="$(hostname 2>/dev/null || echo cloud)"
 RUN_ID="$(date +%Y%m%d_%H%M%S)_$RANDOM"
 
-
-
-
-
-
 ensure_firewall() {
   if gcloud compute firewall-rules list --filter="name=${FW_NAME}" --format="value(name)" | grep -q .; then
     gcloud compute firewall-rules update "${FW_NAME}" \
-      --allow tcp:65531,tcp:65532,tcp:22 \
+      --allow tcp:65531,tcp:22 \
       --target-tags=http-server,https-server >/dev/null 2>&1 || true
   else
     gcloud compute firewall-rules create "${FW_NAME}" \
-      --allow tcp:65531,tcp:65532,tcp:22 \
+      --allow tcp:65531,tcp:22 \
       --target-tags=http-server,https-server \
-      --description="Allow HTTP, HTTPS, SSH, 65531 and 65532" \
+      --description="Allow HTTP, HTTPS, SSH, 65531" \
       --direction=INGRESS --priority=1000 --network=default >/dev/null 2>&1 || true
   fi
 }
 
 count_and_next_index() {
-  local prefix="$1" zone="$2"
+  local prefix="$1"
   local names count max
 
   names="$(timeout 30 gcloud compute instances list \
-    --filter="name~'^${prefix}-[0-9]+' AND zone:(${zone})" \
+    --filter="name~'^${prefix}-[0-9]+'" \
     --format='value(name)' 2>/dev/null || true)"
 
   count=0
@@ -82,68 +74,56 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 
 apt update -y
-apt install -y wget curl build-essential libpam0g-dev libwrap0-dev
 
-cd /usr/local/src
-wget -q https://www.inet.no/dante/files/dante-1.4.3.tar.gz
-tar -xzf dante-1.4.3.tar.gz
-cd dante-1.4.3
+sudo mkdir -p /opt/hev-socks5
+cd /opt/hev-socks5
+sudo wget -q -O hev-socks5-server https://github.com/heiher/hev-socks5-server/releases/download/2.11.2/hev-socks5-server-linux-x86_64
+sudo chmod +x hev-socks5-server
+sudo mkdir -p /etc/hev-socks5
 
-./configure
-make
-make install
-
-PROXY_USER="${PROXY_USER}"
-PROXY_PASS="${PROXY_PASS}"
-
-if ! id "\${PROXY_USER}" >/dev/null 2>&1; then
-  useradd -m "\${PROXY_USER}"
-fi
-echo "\${PROXY_USER}:\${PROXY_PASS}" | chpasswd
-
-NET_IFACE=\$(ip -o -4 route show to default | awk '{print \$5}')
-
-cat > /etc/danted.conf <<CONF
-logoutput: syslog
-
-internal: 0.0.0.0 port = 65531
-internal: 0.0.0.0 port = 65532
-
-external: \${NET_IFACE}
-
-method: username
-user.notprivileged: nobody
-
-client pass {
-    from: 0.0.0.0/0 to: 0.0.0.0/0
-    log: connect disconnect error
-}
-
-pass {
-    from: 0.0.0.0/0 to: 0.0.0.0/0
-    protocol: tcp udp
-    log: connect disconnect error
-    method: username
-}
+cat > /etc/hev-socks5/config.yml <<CONF
+main:
+  workers: 4
+  port: 65531
+  listen-address: '0.0.0.0'
+  listen-ipv6-only: false
+  bind-address: ''
+  bind-address-v4: '0.0.0.0'
+  bind-address-v6: ''
+  bind-interface: ''
+  domain-address-type: unspec
+  mark: 0
+auth:
+  username: ${PROXY_USER}
+  password: ${PROXY_PASS}
 CONF
 
-cat > /etc/systemd/system/danted.service <<'SERVICE'
+sudo useradd -r -s /usr/sbin/nologin hev || true
+sudo chown -R hev:hev /opt/hev-socks5
+sudo chown -R hev:hev /etc/hev-socks5
+
+cat > /etc/systemd/system/hev-socks5.service <<'SERVICE'
 [Unit]
-Description=Dante SOCKS proxy daemon
-After=network.target
+Description=hev-socks5-server
+After=network-online.target
+Wants=network-online.target
 
 [Service]
-ExecStart=/usr/local/sbin/sockd -f /etc/danted.conf
+Type=simple
+User=hev
+Group=hev
+ExecStart=/opt/hev-socks5/hev-socks5-server /etc/hev-socks5/config.yml
 Restart=on-failure
+RestartSec=2
+LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
 SERVICE
 
-systemctl daemon-reexec
 systemctl daemon-reload
-systemctl enable danted
-systemctl restart danted
+systemctl enable --now hev-socks5
+systemctl status hev-socks5 --no-pager || true
 EOF
 
   echo "$f"
@@ -158,53 +138,55 @@ run_for_project() {
 
   # TOKYO
   local TOKYO_COUNT TOKYO_NEXT TOKYO_MISSING
-  read -r TOKYO_COUNT TOKYO_NEXT <<< "$(count_and_next_index "proxy-tokyo" "${ZONE_TOKYO}")"
-  TOKYO_MISSING=$(( DESIRED_TOKYO - TOKYO_COUNT ))
+  read -r TOKYO_COUNT TOKYO_NEXT <<< "\$(count_and_next_index "proxy-tokyo")"
+  TOKYO_MISSING=\$(( DESIRED_TOKYO - TOKYO_COUNT ))
 
-  if [ "${TOKYO_MISSING}" -gt 0 ]; then
-    for i in $(seq 0 $((TOKYO_MISSING - 1))); do
-      local IDX=$((TOKYO_NEXT + i))
-      local NAME="proxy-tokyo-${IDX}"
+  if [ "\${TOKYO_MISSING}" -gt 0 ]; then
+    for i in \$(seq 0 \$((TOKYO_MISSING - 1))); do
+      local IDX=\$((TOKYO_NEXT + i))
+      local NAME="proxy-tokyo-\${IDX}"
+      local ZONE="\${TOKYO_ZONES[\$(( IDX % \${#TOKYO_ZONES[@]} ))]}"
 
-      timeout 180 gcloud compute instances create "$NAME" \
-        --zone="${ZONE_TOKYO}" \
-        --machine-type="${MACHINE_TYPE}" \
-        --image-family="${IMAGE_FAMILY}" \
-        --image-project="${IMAGE_PROJECT}" \
-        --boot-disk-size="${BOOT_DISK_SIZE}" \
-        --boot-disk-type="${BOOT_DISK_TYPE}" \
-        --tags="${TAGS}" \
-        --metadata-from-file=startup-script="${STARTUP_FILE}" \
-        --metadata=enable-oslogin=true \
+      timeout 180 gcloud compute instances create "\$NAME" \\
+        --zone="\${ZONE}" \\
+        --machine-type="\${MACHINE_TYPE}" \\
+        --image-family="\${IMAGE_FAMILY}" \\
+        --image-project="\${IMAGE_PROJECT}" \\
+        --boot-disk-size="\${BOOT_DISK_SIZE}" \\
+        --boot-disk-type="\${BOOT_DISK_TYPE}" \\
+        --tags="\${TAGS}" \\
+        --metadata-from-file=startup-script="\${STARTUP_FILE}" \\
+        --metadata=enable-oslogin=true \\
         --quiet || true
 
-      sleep "${SLEEP_BETWEEN_CREATES}"
+      sleep "\${SLEEP_BETWEEN_CREATES}"
     done
   fi
 
   # OSAKA
   local OSAKA_COUNT OSAKA_NEXT OSAKA_MISSING
-  read -r OSAKA_COUNT OSAKA_NEXT <<< "$(count_and_next_index "proxy-osaka" "${ZONE_OSAKA}")"
-  OSAKA_MISSING=$(( DESIRED_OSAKA - OSAKA_COUNT ))
+  read -r OSAKA_COUNT OSAKA_NEXT <<< "\$(count_and_next_index "proxy-osaka")"
+  OSAKA_MISSING=\$(( DESIRED_OSAKA - OSAKA_COUNT ))
 
-  if [ "${OSAKA_MISSING}" -gt 0 ]; then
-    for i in $(seq 0 $((OSAKA_MISSING - 1))); do
-      local IDX=$((OSAKA_NEXT + i))
-      local NAME="proxy-osaka-${IDX}"
+  if [ "\${OSAKA_MISSING}" -gt 0 ]; then
+    for i in \$(seq 0 \$((OSAKA_MISSING - 1))); do
+      local IDX=\$((OSAKA_NEXT + i))
+      local NAME="proxy-osaka-\${IDX}"
+      local ZONE="\${OSAKA_ZONES[\$(( IDX % \${#OSAKA_ZONES[@]} ))]}"
 
-      timeout 180 gcloud compute instances create "$NAME" \
-        --zone="${ZONE_OSAKA}" \
-        --machine-type="${MACHINE_TYPE}" \
-        --image-family="${IMAGE_FAMILY}" \
-        --image-project="${IMAGE_PROJECT}" \
-        --boot-disk-size="${BOOT_DISK_SIZE}" \
-        --boot-disk-type="${BOOT_DISK_TYPE}" \
-        --tags="${TAGS}" \
-        --metadata-from-file=startup-script="${STARTUP_FILE}" \
-        --metadata=enable-oslogin=true \
+      timeout 180 gcloud compute instances create "\$NAME" \\
+        --zone="\${ZONE}" \\
+        --machine-type="\${MACHINE_TYPE}" \\
+        --image-family="\${IMAGE_FAMILY}" \\
+        --image-project="\${IMAGE_PROJECT}" \\
+        --boot-disk-size="\${BOOT_DISK_SIZE}" \\
+        --boot-disk-type="\${BOOT_DISK_TYPE}" \\
+        --tags="\${TAGS}" \\
+        --metadata-from-file=startup-script="\${STARTUP_FILE}" \\
+        --metadata=enable-oslogin=true \\
         --quiet || true
 
-      sleep "${SLEEP_BETWEEN_CREATES}"
+      sleep "\${SLEEP_BETWEEN_CREATES}"
     done
   fi
 }
@@ -216,8 +198,6 @@ if [ "$WHOAMI" = "unknown" ] || [ -z "$WHOAMI" ]; then
 fi
 
 echo "🚀 START SCRIPT | REG_NAME=${REG_NAME} | ACC=${WHOAMI}"
-
-
 
 cleanup() { true; }
 trap cleanup EXIT
@@ -246,16 +226,6 @@ PROXY_LIST_65531="$(
   done
 )"
 
-PROXY_LIST_65532="$(
-  for PROJECT_ID in "${ALL_PROJECTS[@]}"; do
-    timeout 30 gcloud --project "$PROJECT_ID" compute instances list \
-      --filter="name~'^proxy-(tokyo|osaka)-'" \
-      --format="value(EXTERNAL_IP)" 2>/dev/null | \
-      awk -v u="${PROXY_USER}" -v pw="${PROXY_PASS}" 'NF {print $1":65532:"u":"pw}'
-  done
-)"
-
-
 PROXY_FILE="$HOME/${WHOAMI}.txt"
 {
   echo "APP=${REG_APP}"
@@ -267,19 +237,11 @@ PROXY_FILE="$HOME/${WHOAMI}.txt"
   echo ""
   echo "---- PORT 65531 ----"
   echo "$PROXY_LIST_65531"
-  echo ""
-  echo "---- PORT 65532 ----"
-  echo "$PROXY_LIST_65532"
 } > "$PROXY_FILE"
 
-
 echo ""
-echo "========== PROXY PORT 65531/65532 =========="
+echo "========== PROXY PORT 65531 =========="
 echo "$PROXY_LIST_65531"
-echo "$PROXY_LIST_65532"
 echo ""
-
-echo "🎉 HOÀN TẤT."
-
 
 echo "🎉 HOÀN TẤT."
