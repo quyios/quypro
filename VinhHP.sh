@@ -138,55 +138,55 @@ run_for_project() {
 
   # TOKYO
   local TOKYO_COUNT TOKYO_NEXT TOKYO_MISSING
-  read -r TOKYO_COUNT TOKYO_NEXT <<< "\$(count_and_next_index "proxy-tokyo")"
-  TOKYO_MISSING=\$(( DESIRED_TOKYO - TOKYO_COUNT ))
+  read -r TOKYO_COUNT TOKYO_NEXT <<< "$(count_and_next_index "proxy-tokyo")"
+  TOKYO_MISSING=$(( DESIRED_TOKYO - TOKYO_COUNT ))
 
-  if [ "\${TOKYO_MISSING}" -gt 0 ]; then
-    for i in \$(seq 0 \$((TOKYO_MISSING - 1))); do
-      local IDX=\$((TOKYO_NEXT + i))
-      local NAME="proxy-tokyo-\${IDX}"
-      local ZONE="\${TOKYO_ZONES[\$(( IDX % \${#TOKYO_ZONES[@]} ))]}"
+  if [ "${TOKYO_MISSING}" -gt 0 ]; then
+    for i in $(seq 0 $((TOKYO_MISSING - 1))); do
+      local IDX=$((TOKYO_NEXT + i))
+      local NAME="proxy-tokyo-${IDX}"
+      local ZONE="${TOKYO_ZONES[$(( IDX % ${#TOKYO_ZONES[@]} ))]}"
 
-      timeout 180 gcloud compute instances create "\$NAME" \\
-        --zone="\${ZONE}" \\
-        --machine-type="\${MACHINE_TYPE}" \\
-        --image-family="\${IMAGE_FAMILY}" \\
-        --image-project="\${IMAGE_PROJECT}" \\
-        --boot-disk-size="\${BOOT_DISK_SIZE}" \\
-        --boot-disk-type="\${BOOT_DISK_TYPE}" \\
-        --tags="\${TAGS}" \\
-        --metadata-from-file=startup-script="\${STARTUP_FILE}" \\
-        --metadata=enable-oslogin=true \\
+      timeout 180 gcloud compute instances create "$NAME" \
+        --zone="${ZONE}" \
+        --machine-type="${MACHINE_TYPE}" \
+        --image-family="${IMAGE_FAMILY}" \
+        --image-project="${IMAGE_PROJECT}" \
+        --boot-disk-size="${BOOT_DISK_SIZE}" \
+        --boot-disk-type="${BOOT_DISK_TYPE}" \
+        --tags="${TAGS}" \
+        --metadata-from-file=startup-script="${STARTUP_FILE}" \
+        --metadata=enable-oslogin=true \
         --quiet || true
 
-      sleep "\${SLEEP_BETWEEN_CREATES}"
+      sleep "${SLEEP_BETWEEN_CREATES}"
     done
   fi
 
   # OSAKA
   local OSAKA_COUNT OSAKA_NEXT OSAKA_MISSING
-  read -r OSAKA_COUNT OSAKA_NEXT <<< "\$(count_and_next_index "proxy-osaka")"
-  OSAKA_MISSING=\$(( DESIRED_OSAKA - OSAKA_COUNT ))
+  read -r OSAKA_COUNT OSAKA_NEXT <<< "$(count_and_next_index "proxy-osaka")"
+  OSAKA_MISSING=$(( DESIRED_OSAKA - OSAKA_COUNT ))
 
-  if [ "\${OSAKA_MISSING}" -gt 0 ]; then
-    for i in \$(seq 0 \$((OSAKA_MISSING - 1))); do
-      local IDX=\$((OSAKA_NEXT + i))
-      local NAME="proxy-osaka-\${IDX}"
-      local ZONE="\${OSAKA_ZONES[\$(( IDX % \${#OSAKA_ZONES[@]} ))]}"
+  if [ "${OSAKA_MISSING}" -gt 0 ]; then
+    for i in $(seq 0 $((OSAKA_MISSING - 1))); do
+      local IDX=$((OSAKA_NEXT + i))
+      local NAME="proxy-osaka-${IDX}"
+      local ZONE="${OSAKA_ZONES[$(( IDX % ${#OSAKA_ZONES[@]} ))]}"
 
-      timeout 180 gcloud compute instances create "\$NAME" \\
-        --zone="\${ZONE}" \\
-        --machine-type="\${MACHINE_TYPE}" \\
-        --image-family="\${IMAGE_FAMILY}" \\
-        --image-project="\${IMAGE_PROJECT}" \\
-        --boot-disk-size="\${BOOT_DISK_SIZE}" \\
-        --boot-disk-type="\${BOOT_DISK_TYPE}" \\
-        --tags="\${TAGS}" \\
-        --metadata-from-file=startup-script="\${STARTUP_FILE}" \\
-        --metadata=enable-oslogin=true \\
+      timeout 180 gcloud compute instances create "$NAME" \
+        --zone="${ZONE}" \
+        --machine-type="${MACHINE_TYPE}" \
+        --image-family="${IMAGE_FAMILY}" \
+        --image-project="${IMAGE_PROJECT}" \
+        --boot-disk-size="${BOOT_DISK_SIZE}" \
+        --boot-disk-type="${BOOT_DISK_TYPE}" \
+        --tags="${TAGS}" \
+        --metadata-from-file=startup-script="${STARTUP_FILE}" \
+        --metadata=enable-oslogin=true \
         --quiet || true
 
-      sleep "\${SLEEP_BETWEEN_CREATES}"
+      sleep "${SLEEP_BETWEEN_CREATES}"
     done
   fi
 }
