@@ -9,7 +9,7 @@ PROXY_USER="$(openssl rand -hex 4 2>/dev/null || echo "user$RANDOM")"
 PROXY_PASS="$(openssl rand -hex 6 2>/dev/null || echo "pass$RANDOM$RANDOM")"
 
 DESIRED_TOKYO=4
-DESIRED_OSAKA=0
+DESIRED_OSAKA=4
 
 TOKYO_ZONES=("asia-northeast1-a" "asia-northeast1-b" "asia-northeast1-c" "asia-northeast1-a")
 OSAKA_ZONES=("asia-northeast2-a" "asia-northeast2-b" "asia-northeast2-c" "asia-northeast2-a")
@@ -245,4 +245,5 @@ echo "$PROXY_LIST_65531"
 echo ""
 
 echo "🎉 HOÀN TẤT."
+
 
