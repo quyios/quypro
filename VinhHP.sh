@@ -12,7 +12,7 @@ DESIRED_TOKYO=4
 DESIRED_OSAKA=4
 
 TOKYO_ZONES=("asia-northeast1-a" "asia-northeast1-b" "asia-northeast1-c" "asia-northeast1-a")
-OSAKA_ZONES=("asia-northeast2-a" "asia-northeast2-b" "asia-northeast2-c" "asia-northeast2-a"))
+OSAKA_ZONES=("asia-northeast2-a" "asia-northeast2-b" "asia-northeast2-c" "asia-northeast2-a")
 
 MACHINE_TYPE="e2-micro"
 IMAGE_FAMILY="ubuntu-2204-lts"
